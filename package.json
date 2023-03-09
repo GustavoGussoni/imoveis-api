@@ -17,5 +17,11 @@
     "supertest": "^6.3.3",
     "ts-jest": "^28.0.8",
     "typescript": "^4.9.5"
-  }
+  },
+  "name": "m4-t14-kimoveis-gussoni",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Kenzie-Academy-Brasil-Developers/m4-t14-kimoveis-gussoni.git",
+  "author": "Gustavo Gussoni <gussonigq@gmail.com>",
+  "license": "MIT"
 }

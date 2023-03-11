@@ -18,7 +18,7 @@ const ensureCategoryExistsMiddleware = async (
     },
   });
 
-  if (findName) throw new AppError("Category already exists", 404);
+  if (findName) throw new AppError("Category already exists", 409);
 
   return next();
 };

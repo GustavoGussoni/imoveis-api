@@ -7,8 +7,13 @@ const ensureUserIsAdminMiddleware = async (
   next: NextFunction
 ): Promise<void> => {
   const isAdmin = req.user.admin;
-
-  if (!isAdmin) throw new AppError("User needs to be admin", 404);
+  const reqId = parseInt(req.params.id);
+  if (!isAdmin) {
+    if (reqId === req.user.id) {
+      return next();
+    }
+    throw new AppError("Insufficient permission", 403);
+  }
 
   return next();
 };

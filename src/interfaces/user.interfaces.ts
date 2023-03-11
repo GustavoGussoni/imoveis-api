@@ -14,4 +14,10 @@ type IMultipleUsersReturn = z.infer<typeof returnMultipleUserSchema>;
 type IUserUpdateData = z.infer<typeof userUpdateSchema>;
 type IUserUpdate = DeepPartial<IUserUpdateData>;
 
-export { IUser, IUserReturn, IMultipleUsersReturn, IUserUpdate };
+export {
+  IUser,
+  IUserReturn,
+  IMultipleUsersReturn,
+  IUserUpdate,
+  IUserUpdateData,
+};

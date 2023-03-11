@@ -37,8 +37,8 @@ userRoutes.patch(
 userRoutes.delete(
   "/:id",
   ensureTokenIsValidMiddleware,
-  ensureUserIsAdminMiddleware,
   ensureUserExistsMiddleware,
+  ensureUserIsAdminMiddleware,
   ensureUserIsActiveMiddleware,
   deleteUserController
 );

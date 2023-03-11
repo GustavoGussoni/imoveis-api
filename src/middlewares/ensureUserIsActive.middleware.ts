@@ -16,7 +16,7 @@ const ensureUserIsActiveMiddleware = async (
     },
   });
 
-  if (!user) throw new AppError("User already removed", 401);
+  if (!user) throw new AppError("User not found", 404);
 
   return next();
 };

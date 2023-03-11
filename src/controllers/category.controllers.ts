@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ICategory } from "../interfaces/category.interfaces";
 import createCategoryService from "../services/category/createCategory.service";
 import listCategoryService from "../services/category/listCategory.service";
+import listRealEstateByCategoryService from "../services/category/listRealEstateByCategory.service";
 
 const createCategoryController = async (
   req: Request,
@@ -21,4 +22,20 @@ const listCategoryController = async (
 
   return res.json(categories);
 };
-export { createCategoryController, listCategoryController };
+
+const listRealEstateByCategoryController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const categoryId = parseInt(req.params.id);
+
+  const findCategory = await listRealEstateByCategoryService(categoryId);
+
+  return res.json(findCategory);
+};
+
+export {
+  createCategoryController,
+  listCategoryController,
+  listRealEstateByCategoryController,
+};

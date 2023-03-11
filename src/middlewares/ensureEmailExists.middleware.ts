@@ -17,7 +17,7 @@ const ensureEmailExistsMiddleware = async (
     },
   });
 
-  if (findEmail) throw new AppError("Email already exists", 404);
+  if (findEmail) throw new AppError("Email already exists", 409);
 
   return next();
 };

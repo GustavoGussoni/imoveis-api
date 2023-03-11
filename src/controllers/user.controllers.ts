@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
 import { AppError } from "../errors";
-import { IUser } from "../interfaces/user.interfaces";
+import {
+  IUser,
+  IUserUpdate,
+  IUserUpdateData,
+} from "../interfaces/user.interfaces";
 import createUserService from "../services/user/createUser.service";
 import deleteUserService from "../services/user/deleteUser.service";
 import { listUsersService } from "../services/user/listUsers.service";
@@ -23,15 +27,10 @@ const listUsersController = async (
 };
 
 const updateUserController = async (req: Request, res: Response) => {
-  const userData = req.body;
+  const userData: IUserUpdate = req.body;
   const idUser = parseInt(req.params.id);
   const isAdmin = req.user.admin;
 
-  if (isAdmin) {
-    const updatedUser = await updateUserService(userData, idUser);
-
-    return res.json(updatedUser);
-  }
   if (!isAdmin) {
     if (req.user.id === idUser) {
       const updatedUser = await updateUserService(userData, idUser);
@@ -39,7 +38,13 @@ const updateUserController = async (req: Request, res: Response) => {
       return res.json(updatedUser);
     }
 
-    throw new AppError("You can update only your profile", 401);
+    throw new AppError("User not found", 404);
+  }
+
+  if (isAdmin) {
+    const updatedUser = await updateUserService(userData, idUser);
+
+    return res.json(updatedUser);
   }
 };
 

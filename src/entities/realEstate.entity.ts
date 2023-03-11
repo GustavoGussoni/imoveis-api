@@ -24,17 +24,17 @@ class RealEstate {
   @Column({ type: "integer" })
   size: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: "date" })
   createdAt: string;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: "date" })
   updatedAt: string;
 
-  @OneToOne(() => Address, (address) => address.id)
+  @OneToOne(() => Address)
   @JoinColumn()
   address: Address;
 
-  @ManyToOne(() => Category, (category) => category.id)
+  @ManyToOne(() => Category)
   category: Category;
 }
 

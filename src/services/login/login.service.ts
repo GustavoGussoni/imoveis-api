@@ -14,12 +14,12 @@ const loginService = async (loginData: ILogin): Promise<string> => {
     email: loginData.email,
   });
 
-  if (!user) throw new AppError("Wrong email or password", 401);
+  if (!user) throw new AppError("Invalid credentials", 401);
   if (user.deletedAt !== null) throw new AppError("User is disabled", 401);
 
   const passwordMatch = await compare(loginData.password, user.password);
 
-  if (!passwordMatch) throw new AppError("Wrong email or password", 401);
+  if (!passwordMatch) throw new AppError("Invalid credentials", 401);
 
   const token: string = jwt.sign(
     {

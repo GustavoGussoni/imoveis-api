@@ -29,9 +29,9 @@ userRoutes.get(
 );
 userRoutes.patch(
   "/:id",
-  ensureDataIsValidMiddleware(userUpdateSchema),
+  ensureUserExistsMiddleware,
   ensureTokenIsValidMiddleware,
-  ensureEmailExistsMiddleware,
+  ensureDataIsValidMiddleware(userUpdateSchema),
   updateUserController
 );
 userRoutes.delete(

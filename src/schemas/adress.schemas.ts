@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 const addressSchema = z.object({
-  street: z.string().max(45),
+  street: z.string(),
   zipCode: z.string().max(8),
-  number: z.string().max(7).optional(),
-  city: z.string().max(20),
+  number: z.string().max(7).nullish(),
+  city: z.string(),
   state: z.string().max(2),
 });
 

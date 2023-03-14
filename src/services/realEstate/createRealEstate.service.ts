@@ -4,13 +4,12 @@ import { Address, Category, RealEstate } from "../../entities";
 import { AppError } from "../../errors";
 import {
   IRealEstate,
-  IRealEstateAddressAsNumber,
   IRealEstateReturn,
 } from "../../interfaces/realEstate.interfaces";
 
 const createRealEstateService = async (
   realEstateData: IRealEstate
-): Promise<any> => {
+): Promise<IRealEstateReturn> => {
   const realEstateRepository: Repository<RealEstate> =
     AppDataSource.getRepository(RealEstate);
   const addressRepository: Repository<Address> =
@@ -20,7 +19,7 @@ const createRealEstateService = async (
 
   const findCategory = await categoryRepository.findOne({
     where: {
-      id: realEstateData.category,
+      id: realEstateData.categoryId,
     },
   });
 
@@ -31,7 +30,7 @@ const createRealEstateService = async (
       street: realEstateData.address.street,
     },
   });
-  if (findAddress) throw new AppError("Address already exists", 404);
+  if (findAddress) throw new AppError("Address already exists", 409);
 
   const address = addressRepository.create(realEstateData.address);
   await addressRepository.save(address);

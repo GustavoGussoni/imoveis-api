@@ -19,7 +19,7 @@ const ensureUserExistsMiddleware = async (
   const users = returnMultipleUserSchema.parse(findUsers);
 
   const userFind = users.find((el) => el.id === parseInt(req.params.id));
-  console.log("oi", userFind);
+
   if (!userFind) throw new AppError("User not found", 404);
 
   return next();

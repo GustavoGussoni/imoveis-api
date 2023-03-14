@@ -1,10 +1,6 @@
 import { Request, Response } from "express";
 import { AppError } from "../errors";
-import {
-  IUser,
-  IUserUpdate,
-  IUserUpdateData,
-} from "../interfaces/user.interfaces";
+import { IUser, IUserUpdate } from "../interfaces/user.interfaces";
 import createUserService from "../services/user/createUser.service";
 import deleteUserService from "../services/user/deleteUser.service";
 import { listUsersService } from "../services/user/listUsers.service";
@@ -31,21 +27,13 @@ const updateUserController = async (req: Request, res: Response) => {
   const idUser = parseInt(req.params.id);
   const isAdmin = req.user.admin;
 
-  if (!isAdmin) {
-    if (req.user.id === idUser) {
-      const updatedUser = await updateUserService(userData, idUser);
-
-      return res.json(updatedUser);
-    }
-
-    throw new AppError("User not found", 404);
+  if (!isAdmin && req.user.id !== idUser) {
+    throw new AppError("Insufficient permission", 403);
   }
 
-  if (isAdmin) {
-    const updatedUser = await updateUserService(userData, idUser);
+  const updatedUser = await updateUserService(userData, idUser);
 
-    return res.json(updatedUser);
-  }
+  return res.json(updatedUser);
 };
 
 const deleteUserController = async (req: Request, res: Response) => {

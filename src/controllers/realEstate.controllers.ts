@@ -10,7 +10,7 @@ const createRealEstateController = async (
 
   const newRealEstate = await createRealEstateService(realEstateData);
 
-  return res.status(200).json(newRealEstate);
+  return res.status(201).json(newRealEstate);
 };
 
 const listRealEstateController = async (

@@ -18,7 +18,7 @@ const ensureRealEstateAddressExistsMiddleware = async (
     },
   });
 
-  if (findAddress) throw new AppError("Address already exists", 404);
+  if (findAddress) throw new AppError("Address already exists", 409);
 
   return next();
 };

@@ -5,10 +5,11 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Address, Category } from "./index";
+import { Address, Category, Schedule } from "./index";
 
 @Entity("realEstate")
 class RealEstate {
@@ -34,8 +35,13 @@ class RealEstate {
   @JoinColumn()
   address: Address;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, (category) => category.realEstate, {
+    nullable: true,
+  })
   category: Category;
+
+  @OneToMany(() => Schedule, (schedules) => schedules.realEstate)
+  schedules: Schedule[];
 }
 
 export { RealEstate };

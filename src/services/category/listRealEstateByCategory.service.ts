@@ -1,14 +1,11 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
-import { Address, Category, RealEstate } from "../../entities";
+import { Category } from "../../entities";
 import { AppError } from "../../errors";
-import { IMultipleRealEstate } from "../../interfaces/realEstate.interfaces";
 
 const listRealEstateByCategoryService = async (
   categoryId: number
 ): Promise<any> => {
-  const realEstateRepository: Repository<RealEstate> =
-    AppDataSource.getRepository(RealEstate);
   const categoryRepository: Repository<Category> =
     AppDataSource.getRepository(Category);
 
@@ -20,17 +17,16 @@ const listRealEstateByCategoryService = async (
 
   if (!findCategory) throw new AppError("Category not found", 400);
 
-  const findRealEstate = await realEstateRepository.find({
+  const findRealEstate = await categoryRepository.findOne({
     where: {
-      category: findCategory,
+      id: categoryId,
     },
     relations: {
-      address: true,
-      category: true,
+      realEstate: true,
     },
   });
 
-  if (!findRealEstate.length) throw new AppError("Not found", 404);
+  if (!findRealEstate) throw new AppError("Category not found", 404);
 
   return findRealEstate;
 };

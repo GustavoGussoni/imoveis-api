@@ -14,9 +14,9 @@ const realEstateRoutes: Router = Router();
 realEstateRoutes.post(
   "",
   ensureDataIsValidMiddleware(realEstateSchema),
-  ensureRealEstateAddressExistsMiddleware,
   ensureTokenIsValidMiddleware,
   ensureUserIsAdminMiddleware,
+  ensureRealEstateAddressExistsMiddleware,
   createRealEstateController
 );
 realEstateRoutes.get("", listRealEstateController);
